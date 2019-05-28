@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface RestApi {
 
     @GET("/data/2.5/weather")
-    fun getWeatherByCity(@Query("id") city: String,
+    fun getWeatherByCity(@Query("id") city: Integer,
                          @Query("appId") appId: String,
                          @Query("units") units: String = "imperial") : Call<WeatherDto>
 }

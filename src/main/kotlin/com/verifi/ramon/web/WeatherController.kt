@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.verifi.ramon.weather.WeatherService
 import com.verifi.ramon.weather.domain.WeatherDto
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -13,6 +14,9 @@ class WeatherController {
     @Autowired
     lateinit var weatherService: WeatherService
 
+    @Value("\${openweather.api.lax}")
+    lateinit var laxCityCode: Integer // We can't inject kotlin.Int =(
+
     @GetMapping("/api/v1/weather/lax")
     fun getLosAngelesWeather() : WeatherDto? {
 
@@ -20,7 +24,7 @@ class WeatherController {
 
             println("Attempting to get weather for LAX...")
 
-            val result = weatherService.getWeatherForCity("5368361")
+            val result = weatherService.getWeatherForCity(laxCityCode)
 
             println("Serializing and returning weather DTO: $result")
 
@@ -31,6 +35,6 @@ class WeatherController {
             ex.printStackTrace()
         }
 
-        return WeatherDto()
+        return null
     }
 }

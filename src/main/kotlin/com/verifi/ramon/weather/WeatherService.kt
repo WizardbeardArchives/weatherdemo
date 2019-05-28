@@ -15,18 +15,18 @@ class WeatherService {
     @Autowired
     lateinit var weatherRestClient: RestApi
 
-    fun getWeatherForCity(city: String): WeatherDto? {
+    fun getWeatherForCity(cityCode: Integer): WeatherDto? {
         try {
 
-            println("Attempting to retrieve weather for city: $city...")
+            println("Attempting to retrieve weather for cityCode: $cityCode...")
 
-            val result: Call<WeatherDto> = weatherRestClient.getWeatherByCity(city, key)
+            val result: Call<WeatherDto> = weatherRestClient.getWeatherByCity(cityCode, key)
 
-            println("Retrieved weather for city: $city with result: $result")
+            println("Retrieved weather for cityCode: $cityCode with result: $result")
 
             return result.execute().body() as WeatherDto
         } catch (ex: Exception) {
-            println("Error retrieving weather for city: $city with message: ${ex.message}")
+            println("Error retrieving weather for cityCode: $cityCode with message: ${ex.message}")
             ex.printStackTrace()
         }
 
